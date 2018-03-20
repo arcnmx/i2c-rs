@@ -24,10 +24,10 @@ impl<I: ReadWrite> ReadWrite for SmbusReadWrite<I> {
 impl<I: ReadWrite> Smbus for SmbusReadWrite<I> {
     fn smbus_write_quick(&mut self, value: bool) -> Result<(), Self::Error> {
         if value {
-            self.i2c_write(&[])
-        } else {
             self.i2c_read(&mut [])
                 .map(drop)
+        } else {
+            self.i2c_write(&[])
         }
     }
 
