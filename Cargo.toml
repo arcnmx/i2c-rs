@@ -1,0 +1,18 @@
+[package]
+name = "i2c"
+version = "0.0.1"
+authors = ["arcnmx"]
+
+description = "Generic I2C traits"
+keywords = ["i2c"]
+
+documentation = "http://arcnmx.github.io/i2c-rs/i2c"
+repository = "https://github.com/arcnmx/i2c-rs"
+readme = "README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/i2c-rs" }
+maintenance = { status = "passively-maintained" }
+
+[dependencies]
