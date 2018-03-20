@@ -1,0 +1,20 @@
+[package]
+name = "i2c-i2cdev"
+version = "0.0.1"
+authors = ["arcnmx"]
+
+description = "Implementation of I2C traits for i2cdev crate"
+keywords = ["i2c", "i2cdev"]
+
+documentation = "http://arcnmx.github.io/i2c-rs/i2c_i2cdev"
+repository = "https://github.com/arcnmx/i2c-rs"
+readme = "../README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/i2c-rs" }
+maintenance = { status = "passively-maintained" }
+
+[dependencies]
+i2c = { version = "^0.0.1", path = "../" }
+i2cdev = "^0.3.2"

@@ -16,3 +16,4 @@ travis-ci = { repository = "arcnmx/i2c-rs" }
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
+bitflags = "^1.0.1"
