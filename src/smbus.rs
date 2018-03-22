@@ -1,5 +1,5 @@
 use std::{iter, cmp};
-use {Master, Address, I2cBlock, ReadWrite, Smbus, Smbus20};
+use {Master, Address, BlockTransfer, ReadWrite, Smbus, Smbus20};
 
 /// A wrapper around an `i2c::ReadWrite` that attempts to impl `Smbus`.
 ///
@@ -109,7 +109,7 @@ impl<I: ReadWrite> Smbus for SmbusReadWrite<I> {
     }
 }
 
-impl<I: ReadWrite> I2cBlock for SmbusReadWrite<I> {
+impl<I: ReadWrite> BlockTransfer for SmbusReadWrite<I> {
     fn i2c_read_block_data(&mut self, command: u8, value: &mut [u8]) -> Result<usize, Self::Error> {
         self.smbus_write_byte(command)?;
         self.i2c_read(value)

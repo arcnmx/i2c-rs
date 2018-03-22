@@ -113,7 +113,7 @@ pub trait SmbusPec: Smbus {
 }
 
 /// Basic I2C transfer without including length prefixes associated with SMBus.
-pub trait I2cBlock: Master {
+pub trait BlockTransfer: Master {
     /// Reads a block of bytes from the designated device register.
     ///
     /// Unlike `smbus_read_block_data` this does not receive a data length.

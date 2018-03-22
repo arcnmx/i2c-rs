@@ -93,7 +93,7 @@ impl<I: I2CDevice> i2c::Smbus for I2cDev<I> {
     }
 }
 
-impl<I: I2CDevice> i2c::I2cBlock for I2cDev<I> {
+impl<I: I2CDevice> i2c::BlockTransfer for I2cDev<I> {
     fn i2c_read_block_data(&mut self, command: u8, value: &mut [u8]) -> Result<usize, Self::Error> {
         self.0.smbus_read_i2c_block_data(command, value.len() as _)
             .map(|data| Self::map_buffer(data, value))
