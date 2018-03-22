@@ -1,11 +1,29 @@
-use {Master, ReadWrite, Smbus};
+use std::{iter, cmp};
+use {Master, Address, I2cBlock, ReadWrite, Smbus, Smbus20};
 
-/// A wrapper around an `i2c::ReadWrite` that impls `Smbus`.
+/// A wrapper around an `i2c::ReadWrite` that attempts to impl `Smbus`.
+///
+/// Repeated START is not supported, which may confuse some devices and
+/// probably makes this a non-conforming implementation.
 pub struct SmbusReadWrite<I>(pub I);
+
+impl<I: ReadWrite> SmbusReadWrite<I> {
+    fn _smbus_read_block(&mut self, value: &mut [u8]) -> Result<usize, I::Error> {
+        let mut buffer = vec![0u8; value.len() + 1];
+        self.i2c_read(&mut buffer)
+            .map(|len| {
+                let len = cmp::min(cmp::min(len, buffer[0] as usize), value.len());
+                value[..len].copy_from_slice(&buffer[1..len + 1]);
+                buffer[0] as usize
+            })
+    }
+}
 
 impl<I: Master> Master for SmbusReadWrite<I> {
     type Error = I::Error;
+}
 
+impl<I: Address> Address for SmbusReadWrite<I> {
     fn set_slave_address(&mut self, addr: u16, tenbit: bool) -> Result<(), Self::Error> {
         self.0.set_slave_address(addr, tenbit)
     }
@@ -80,11 +98,32 @@ impl<I: ReadWrite> Smbus for SmbusReadWrite<I> {
             })
     }
 
-    fn smbus_read_block_data(&mut self, _command: u8, _value: &mut [u8]) -> Result<usize, Self::Error> {
-        unimplemented!()
+    fn smbus_read_block_data(&mut self, command: u8, value: &mut [u8]) -> Result<usize, Self::Error> {
+        self.smbus_write_byte(command)?;
+        self._smbus_read_block(value)
     }
 
-    fn smbus_write_block_data(&mut self, _command: u8, _value: &[u8]) -> Result<(), Self::Error> {
-        unimplemented!()
+    fn smbus_write_block_data(&mut self, command: u8, value: &[u8]) -> Result<(), Self::Error> {
+        let buffer: Vec<_> = [command, value.len() as u8].iter().chain(value.iter()).cloned().collect();
+        self.i2c_write(&buffer)
+    }
+}
+
+impl<I: ReadWrite> I2cBlock for SmbusReadWrite<I> {
+    fn i2c_read_block_data(&mut self, command: u8, value: &mut [u8]) -> Result<usize, Self::Error> {
+        self.smbus_write_byte(command)?;
+        self.i2c_read(value)
+    }
+
+    fn i2c_write_block_data(&mut self, command: u8, value: &[u8]) -> Result<(), Self::Error> {
+        let buffer: Vec<_> = iter::once(command).chain(value.iter().cloned()).collect();
+        self.i2c_write(&buffer)
+    }
+}
+
+impl<I: ReadWrite> Smbus20 for SmbusReadWrite<I> {
+    fn smbus_process_call_block(&mut self, command: u8, write: &[u8], read: &mut [u8]) -> Result<usize, Self::Error> {
+        self.smbus_write_block_data(command, write)?;
+        self._smbus_read_block(read)
     }
 }

@@ -17,11 +17,14 @@ mod smbus;
 
 pub use smbus::SmbusReadWrite;
 
-/// An I2C master can address slaves on an I2C bus.
+/// Indicates an ability to communicate with the I2C protocol.
 pub trait Master {
     /// The error type returned by I2C operations.
     type Error;
+}
 
+/// An I2C master can address different slaves on an I2C bus.
+pub trait Address: Master {
     /// Sets the current slave to address.
     ///
     /// This should *not* be shifted to include the read/write bit, and
@@ -84,6 +87,9 @@ pub trait Smbus: Master {
     fn smbus_process_call(&mut self, command: u8, value: u16) -> Result<u16, Self::Error>;
 
     /// Reads up to 32 bytes from the designated device register.
+    ///
+    /// Returns the number of bytes read, which may be larger than `value.len()`
+    /// if the read was truncated.
     fn smbus_read_block_data(&mut self, command: u8, value: &mut [u8]) -> Result<usize, Self::Error>;
 
     /// Writes up to 32 bytes to the designated device register.
@@ -94,6 +100,9 @@ pub trait Smbus: Master {
 pub trait Smbus20: Smbus {
     /// Sends up to 31 bytes of data to the designated register, and reads up to
     /// 31 bytes in return.
+    ///
+    /// Returns the number of bytes read, which may be larger than `read.len()`
+    /// if the read was truncated.
     fn smbus_process_call_block(&mut self, command: u8, write: &[u8], read: &mut [u8]) -> Result<usize, Self::Error>;
 }
 
@@ -104,7 +113,7 @@ pub trait SmbusPec: Smbus {
 }
 
 /// Basic I2C transfer without including length prefixes associated with SMBus.
-pub trait I2c: Master {
+pub trait I2cBlock: Master {
     /// Reads a block of bytes from the designated device register.
     ///
     /// Unlike `smbus_read_block_data` this does not receive a data length.
