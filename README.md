@@ -2,9 +2,12 @@
 
 [![travis-badge][]][travis] [![release-badge][]][cargo] [![docs-badge][]][docs] [![license-badge][]][license]
 
-`i2c` is a providing crate providing traits for working with an I2C bus.
+`i2c` is a crate providing traits for working with an I2C bus.
 
 ## Implementations
+
+The generic traits in `i2c` must be implemented by an I2C master/driver in order
+to be used:
 
 - [i2c-linux](https://crates.io/crates/i2c-linux) with the `i2c` feature.
 - [i2c-i2cdev](https://crates.io/crates/i2c-i2cdev) for the [i2cdev](https://crates.io/crates/i2cdev) crate.
