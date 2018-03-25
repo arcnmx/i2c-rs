@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["I2cDev","A wrapper around an `I2CDevice` type that impls the i2c traits."]]});

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SmbusReadWrite` struct in crate `i2c`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SmbusReadWrite">
+
+    <title>i2c::SmbusReadWrite - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct SmbusReadWrite</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Master">Master</a><a href="#impl-Address">Address</a><a href="#impl-ReadWrite">ReadWrite</a><a href="#impl-Smbus">Smbus</a><a href="#impl-BlockTransfer">BlockTransfer</a><a href="#impl-Smbus20">Smbus20</a></div></div><p class='location'><a href='index.html'>i2c</a></p><script>window.sidebarCurrent = {name: 'SmbusReadWrite', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>i2c</a>::<wbr><a class="struct" href=''>SmbusReadWrite</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/i2c/smbus.rs.html#8' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct SmbusReadWrite&lt;I&gt;(pub I);</pre><div class='docblock'><p>A wrapper around an <code>i2c::ReadWrite</code> that attempts to impl <code>Smbus</code>.</p>
+
+<p>Repeated START is not supported, which may confuse some devices and
+probably makes this a non-conforming implementation.</p>
+</div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Master' class='impl'><span class='in-band'><code>impl&lt;I:&nbsp;<a class="trait" href="../i2c/trait.Master.html" title="trait i2c::Master">Master</a>&gt; <a class="trait" href="../i2c/trait.Master.html" title="trait i2c::Master">Master</a> for <a class="struct" href="../i2c/struct.SmbusReadWrite.html" title="struct i2c::SmbusReadWrite">SmbusReadWrite</a>&lt;I&gt;</code><a href='#impl-Master' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#22-24' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Error' class="type"><span id='Error.t' class='invisible'><code>type <a href='../i2c/trait.Master.html#associatedtype.Error' class="type">Error</a> = I::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a></code></span></h4>
+<div class='docblock'><p>The error type returned by I2C operations.</p>
+</div></div><h3 id='impl-Address' class='impl'><span class='in-band'><code>impl&lt;I:&nbsp;<a class="trait" href="../i2c/trait.Address.html" title="trait i2c::Address">Address</a>&gt; <a class="trait" href="../i2c/trait.Address.html" title="trait i2c::Address">Address</a> for <a class="struct" href="../i2c/struct.SmbusReadWrite.html" title="struct i2c::SmbusReadWrite">SmbusReadWrite</a>&lt;I&gt;</code><a href='#impl-Address' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#26-30' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.set_slave_address' class="method"><span id='set_slave_address.v' class='invisible'><code>fn <a href='../i2c/trait.Address.html#tymethod.set_slave_address' class='fnname'>set_slave_address</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;addr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;tenbit: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#27-29' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Sets the current slave to address. <a href="../i2c/trait.Address.html#tymethod.set_slave_address">Read more</a></p>
+</div></div><h3 id='impl-ReadWrite' class='impl'><span class='in-band'><code>impl&lt;I:&nbsp;<a class="trait" href="../i2c/trait.ReadWrite.html" title="trait i2c::ReadWrite">ReadWrite</a>&gt; <a class="trait" href="../i2c/trait.ReadWrite.html" title="trait i2c::ReadWrite">ReadWrite</a> for <a class="struct" href="../i2c/struct.SmbusReadWrite.html" title="struct i2c::SmbusReadWrite">SmbusReadWrite</a>&lt;I&gt;</code><a href='#impl-ReadWrite' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#32-40' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.i2c_read' class="method"><span id='i2c_read.v' class='invisible'><code>fn <a href='../i2c/trait.ReadWrite.html#tymethod.i2c_read' class='fnname'>i2c_read</a>(&amp;mut self, value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;mut [</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#33-35' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Initiate an isolated read transfer on the I2C bus, followed by a STOP.</p>
+</div><h4 id='method.i2c_write' class="method"><span id='i2c_write.v' class='invisible'><code>fn <a href='../i2c/trait.ReadWrite.html#tymethod.i2c_write' class='fnname'>i2c_write</a>(&amp;mut self, value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#37-39' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Initiate an isolated write transfer on the I2C bus, followed by a STOP.</p>
+</div></div><h3 id='impl-Smbus' class='impl'><span class='in-band'><code>impl&lt;I:&nbsp;<a class="trait" href="../i2c/trait.ReadWrite.html" title="trait i2c::ReadWrite">ReadWrite</a>&gt; <a class="trait" href="../i2c/trait.Smbus.html" title="trait i2c::Smbus">Smbus</a> for <a class="struct" href="../i2c/struct.SmbusReadWrite.html" title="struct i2c::SmbusReadWrite">SmbusReadWrite</a>&lt;I&gt;</code><a href='#impl-Smbus' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#42-110' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.smbus_write_quick' class="method"><span id='smbus_write_quick.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_write_quick' class='fnname'>smbus_write_quick</a>(&amp;mut self, value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#43-50' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Sends a single bit to the device, in the place of the rd/wr address bit.</p>
+</div><h4 id='method.smbus_read_byte' class="method"><span id='smbus_read_byte.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_read_byte' class='fnname'>smbus_read_byte</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#52-60' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Reads a single byte from a device without specifying a register.</p>
+</div><h4 id='method.smbus_write_byte' class="method"><span id='smbus_write_byte.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_write_byte' class='fnname'>smbus_write_byte</a>(&amp;mut self, value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#62-64' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Sends a single byte to the device</p>
+</div><h4 id='method.smbus_read_byte_data' class="method"><span id='smbus_read_byte_data.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_read_byte_data' class='fnname'>smbus_read_byte_data</a>(&amp;mut self, command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#66-69' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Reads a byte from the designated register.</p>
+</div><h4 id='method.smbus_write_byte_data' class="method"><span id='smbus_write_byte_data.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_write_byte_data' class='fnname'>smbus_write_byte_data</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#71-73' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Writes a byte to the designated register.</p>
+</div><h4 id='method.smbus_read_word_data' class="method"><span id='smbus_read_word_data.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_read_word_data' class='fnname'>smbus_read_word_data</a>(&amp;mut self, command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#75-84' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Reads a 16-bit word from the designated register.</p>
+</div><h4 id='method.smbus_write_word_data' class="method"><span id='smbus_write_word_data.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_write_word_data' class='fnname'>smbus_write_word_data</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#86-88' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Writes a 16-bit word to the designated register.</p>
+</div><h4 id='method.smbus_process_call' class="method"><span id='smbus_process_call.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_process_call' class='fnname'>smbus_process_call</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#90-99' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Writes a 16-bit word to the specified register, then reads a 16-bit word in response. <a href="../i2c/trait.Smbus.html#tymethod.smbus_process_call">Read more</a></p>
+</div><h4 id='method.smbus_read_block_data' class="method"><span id='smbus_read_block_data.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_read_block_data' class='fnname'>smbus_read_block_data</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;mut [</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#101-104' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Reads up to 32 bytes from the designated device register. <a href="../i2c/trait.Smbus.html#tymethod.smbus_read_block_data">Read more</a></p>
+</div><h4 id='method.smbus_write_block_data' class="method"><span id='smbus_write_block_data.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus.html#tymethod.smbus_write_block_data' class='fnname'>smbus_write_block_data</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#106-109' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Writes up to 32 bytes to the designated device register.</p>
+</div></div><h3 id='impl-BlockTransfer' class='impl'><span class='in-band'><code>impl&lt;I:&nbsp;<a class="trait" href="../i2c/trait.ReadWrite.html" title="trait i2c::ReadWrite">ReadWrite</a>&gt; <a class="trait" href="../i2c/trait.BlockTransfer.html" title="trait i2c::BlockTransfer">BlockTransfer</a> for <a class="struct" href="../i2c/struct.SmbusReadWrite.html" title="struct i2c::SmbusReadWrite">SmbusReadWrite</a>&lt;I&gt;</code><a href='#impl-BlockTransfer' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#112-122' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.i2c_read_block_data' class="method"><span id='i2c_read_block_data.v' class='invisible'><code>fn <a href='../i2c/trait.BlockTransfer.html#tymethod.i2c_read_block_data' class='fnname'>i2c_read_block_data</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;mut [</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#113-116' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Reads a block of bytes from the designated device register. <a href="../i2c/trait.BlockTransfer.html#tymethod.i2c_read_block_data">Read more</a></p>
+</div><h4 id='method.i2c_write_block_data' class="method"><span id='i2c_write_block_data.v' class='invisible'><code>fn <a href='../i2c/trait.BlockTransfer.html#tymethod.i2c_write_block_data' class='fnname'>i2c_write_block_data</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#118-121' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Writes a block of bytes to the designated device register. <a href="../i2c/trait.BlockTransfer.html#tymethod.i2c_write_block_data">Read more</a></p>
+</div></div><h3 id='impl-Smbus20' class='impl'><span class='in-band'><code>impl&lt;I:&nbsp;<a class="trait" href="../i2c/trait.ReadWrite.html" title="trait i2c::ReadWrite">ReadWrite</a>&gt; <a class="trait" href="../i2c/trait.Smbus20.html" title="trait i2c::Smbus20">Smbus20</a> for <a class="struct" href="../i2c/struct.SmbusReadWrite.html" title="struct i2c::SmbusReadWrite">SmbusReadWrite</a>&lt;I&gt;</code><a href='#impl-Smbus20' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#124-129' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.smbus_process_call_block' class="method"><span id='smbus_process_call_block.v' class='invisible'><code>fn <a href='../i2c/trait.Smbus20.html#tymethod.smbus_process_call_block' class='fnname'>smbus_process_call_block</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;command: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;write: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;read: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;mut [</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, Self::<a class="type" href="../i2c/trait.Master.html#associatedtype.Error" title="type i2c::Master::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c/smbus.rs.html#125-128' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Sends up to 31 bytes of data to the designated register, and reads up to 31 bytes in return. <a href="../i2c/trait.Smbus20.html#tymethod.smbus_process_call_block">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "i2c";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
