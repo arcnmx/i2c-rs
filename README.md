@@ -4,6 +4,13 @@
 
 `i2c` is a providing crate providing traits for working with an I2C bus.
 
+## Implementations
+
+- [i2c-linux](https://crates.io/crates/i2c-linux) with the `i2c` feature.
+- [i2c-i2cdev](https://crates.io/crates/i2c-i2cdev) for the [i2cdev](https://crates.io/crates/i2cdev) crate.
+- [nvapi](https://crates.io/crates/nvapi) with the `i2c` feature.
+- Possibly other [downstream crates](https://crates.io/crates/i2c/reverse_dependencies)
+
 ## [Documentation][docs]
 
 See the [documentation][docs] for up to date information.
