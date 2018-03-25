@@ -19,6 +19,7 @@ env:
 before_install:
 - curl -L https://github.com/arcnmx/ci/archive/0.2.tar.gz | tar -xzC $HOME && . $HOME/ci-0.2/src
 script:
+- cd $TRAVIS_BUILD_DIR
 - cargo test
 - cargo build
 - cd $TRAVIS_BUILD_DIR/i2cdev
@@ -32,11 +33,13 @@ deploy:
     all_branches: true
     condition: "$TRAVIS_RUST_VERSION = stable"
 before_deploy:
+- cd $TRAVIS_BUILD_DIR
 - cargo doc
 - cargo package
 - cd $TRAVIS_BUILD_DIR/i2cdev
 - cargo doc
 after_deploy:
+- cd $TRAVIS_BUILD_DIR
 - cargo pages-publish
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/i2cdev
